@@ -1,0 +1,49 @@
+getIDN {
+    out "*IDN?";
+    in "%\$1[^\r\n]";
+    ExtraInput = Ignore;
+}
+
+cmd {
+    out "\$1";
+}
+
+setD {
+    out "\$1 %d";
+}
+getD {
+    out "\$1?";
+    in "%d";
+    ExtraInput = Ignore;
+}
+
+getCurrent {
+    out "AD 0";
+    in "%d";
+}
+
+getVoltage {
+    out "AD 2";
+    in "%d";
+}
+
+setCurrent {
+    out "DA 0,\$1";
+}
+
+setStandby {
+    out "STB";
+}
+
+setON {
+    out "N";
+}
+
+setOFF {
+    out "F";
+}
+
+getStatus {
+    out "S1H";
+    in "%d";
+}
