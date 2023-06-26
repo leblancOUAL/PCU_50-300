@@ -1,0 +1,125 @@
+#
+# Simple database and stream protocol file for basic SCPI (IEEE488.2) commands
+#
+
+
+#
+# Short and long form of identification string
+#
+record(stringin, "$(P)$(R)IDN")
+{
+    field(DESC, "SCPI identification string")
+    field(DTYP, "stream")
+    field(INP,  "@devPCU50_300.proto getIDN(39) $(PORT) $(A)")
+    field(PINI, "YES")
+}
+record(waveform, "$(P)$(R)IDNwf")
+{
+    field(DESC, "SCPI identification string")
+    field(DTYP, "stream")
+    field(INP,  "@devPCU50_300.proto getIDN(199) $(PORT) $(A)")
+    field(PINI, "YES")
+    field(FTVL, "CHAR")
+    field(NELM, "200")
+}
+
+record(bo, "$(P)$(R)RST")
+{
+    field(DESC, "SCPI Reset")
+    field(DTYP, "stream")
+    field(OUT,  "@devPCU50_300.proto cmd(*RST) $(PORT) $(A)")
+}
+
+record(bo, "$(P)$(R)CLS")
+{
+    field(DESC, "SCPI Clear status")
+    field(DTYP, "stream")
+    field(OUT,  "@devPCU50_300.proto cmd(*CLS) $(PORT) $(A)")
+}
+
+record(longin, "$(P)$(R)GetSTB")
+{
+    field(DESC, "SCPI get status byte")
+    field(DTYP, "stream")
+    field(INP,  "@devPCU50_300.proto getD(*STB) $(PORT) $(A)")
+}
+
+record(longin, "$(P)$(R)GetESR")
+{
+    field(DESC, "SCPI get event status")
+    field(DTYP, "stream")
+    field(INP,  "@devPCU50_300.proto getD(*ESR) $(PORT) $(A)")
+}
+
+record(longout, "$(P)$(R)SetESE")
+{
+    field(DESC, "SCPI enable event status")
+    field(DTYP, "stream")
+    field(OUT,  "@devPCU50_300.proto setD(*ESE) $(PORT) $(A)")
+}
+
+record(longin, "$(P)$(R)GetESE")
+{
+    field(DESC, "SCPI enabled event status")
+    field(DTYP, "stream")
+    field(INP,  "@devPCU50_300.proto getD(*ESE) $(PORT) $(A)")
+}
+
+record(longout, "$(P)$(R)SetSRE")
+{
+    field(DESC, "SCPI enable service requests")
+    field(DTYP, "stream")
+    field(OUT,  "@devPCU50_300.proto setD(*SRE) $(PORT) $(A)")
+}
+
+record(longin, "$(P)$(R)GetSRE")
+{
+    field(DESC, "Enabled service requests")
+    field(DTYP, "stream")
+    field(INP,  "@devPCU50_300.proto getD(*SRE) $(PORT) $(A)")
+}
+
+record(longin, "$(P)$(R)GetOPC")
+{
+    field(DESC, "Output completion status")
+    field(DTYP, "stream")
+    field(INP,  "@devPCU50_300.proto getD(*OPC) $(PORT) $(A)")
+}
+
+
+# Interface commands for Heinzinger PCU50_300 (should work with others as well)
+
+record(ai, "$(P)$(R)GetCurrent") {
+    field(DESC, "Read output current")
+    field(DTYP, "stream")
+    field(INP, "@devPCU50_300.proto getCurrent $(PORT) $(A)")
+    # field(SCAN, "1 second")
+    field(SCAN, "Passive")
+    # field(PINI, "YES")
+    field(EGU, "Amps")
+    field(ESLO, "0.001")
+    field(LINR, "SLOPE")
+}
+
+record(ao, "$(P)$(R)SetCurrent") {
+    field(DESC, "Write output current")
+    field(DTYP, "stream")
+    # field(SCAN, "1 second")
+    field(SCAN, "Passive")
+    field(OUT, "@devPCU50_300.proto setCurrent(%d) $(PORT) $(A)")
+    field(PINI, "YES")
+    field(VAL, "0")
+    # field(FLNK, "$(P)$(R)GetCurrent")
+    field(EGU, "Amps")
+    field(ESLO, "0.001")
+    field(LINR, "SLOPE")
+}
+
+record(mbbiDirect, "$(P)$(R)StatusRegister") {
+    field(DESC, "Status Register")
+    field(NOBT, "24")
+    field(DTYP, "stream")
+    field(INP,  "@devPCU50_300.proto getStatus $(PORT) $(A)")
+    field(PINI, "YES")
+    field(SCAN, "Passive")
+}
