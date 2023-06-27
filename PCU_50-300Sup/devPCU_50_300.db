@@ -13,6 +13,7 @@ record(stringin, "$(P)$(R)IDN")
     field(INP,  "@devPCU50_300.proto getIDN(39) $(PORT) $(A)")
     field(PINI, "YES")
 }
+
 record(waveform, "$(P)$(R)IDNwf")
 {
     field(DESC, "SCPI identification string")
@@ -23,83 +24,78 @@ record(waveform, "$(P)$(R)IDNwf")
     field(NELM, "200")
 }
 
-record(bo, "$(P)$(R)RST")
-{
-    field(DESC, "SCPI Reset")
-    field(DTYP, "stream")
-    field(OUT,  "@devPCU50_300.proto cmd(*RST) $(PORT) $(A)")
-}
+############################################################################
+# Commands below this line have been disabled because the Heinzinger PCU
+# 50-300 does NOT implement the mandated minimum SCPI commands.
+############################################################################
 
-record(bo, "$(P)$(R)CLS")
-{
-    field(DESC, "SCPI Clear status")
-    field(DTYP, "stream")
-    field(OUT,  "@devPCU50_300.proto cmd(*CLS) $(PORT) $(A)")
-}
+# record(bo, "$(P)$(R)RST")
+# {
+#     field(DESC, "SCPI Reset")
+#     field(DTYP, "stream")
+#     field(OUT,  "@devPCU50_300.proto cmd(*RST) $(PORT) $(A)")
+# }
 
-record(longin, "$(P)$(R)GetSTB")
-{
-    field(DESC, "SCPI get status byte")
-    field(DTYP, "stream")
-    field(INP,  "@devPCU50_300.proto getD(*STB) $(PORT) $(A)")
-}
+# record(bo, "$(P)$(R)CLS")
+# {
+#     field(DESC, "SCPI Clear status")
+#     field(DTYP, "stream")
+#     field(OUT,  "@devPCU50_300.proto cmd(*CLS) $(PORT) $(A)")
+# }
 
-record(longin, "$(P)$(R)GetESR")
-{
-    field(DESC, "SCPI get event status")
-    field(DTYP, "stream")
-    field(INP,  "@devPCU50_300.proto getD(*ESR) $(PORT) $(A)")
-}
+# record(longin, "$(P)$(R)GetSTB")
+# {
+#     field(DESC, "SCPI get status byte")
+#     field(DTYP, "stream")
+#     field(INP,  "@devPCU50_300.proto getD(*STB) $(PORT) $(A)")
+# }
 
-record(longout, "$(P)$(R)SetESE")
-{
-    field(DESC, "SCPI enable event status")
-    field(DTYP, "stream")
-    field(OUT,  "@devPCU50_300.proto setD(*ESE) $(PORT) $(A)")
-}
+# record(longin, "$(P)$(R)GetESR")
+# {
+#     field(DESC, "SCPI get event status")
+#     field(DTYP, "stream")
+#     field(INP,  "@devPCU50_300.proto getD(*ESR) $(PORT) $(A)")
+# }
 
-record(longin, "$(P)$(R)GetESE")
-{
-    field(DESC, "SCPI enabled event status")
-    field(DTYP, "stream")
-    field(INP,  "@devPCU50_300.proto getD(*ESE) $(PORT) $(A)")
-}
+# record(longout, "$(P)$(R)SetESE")
+# {
+#     field(DESC, "SCPI enable event status")
+#     field(DTYP, "stream")
+#     field(OUT,  "@devPCU50_300.proto setD(*ESE) $(PORT) $(A)")
+# }
 
-record(longout, "$(P)$(R)SetSRE")
-{
-    field(DESC, "SCPI enable service requests")
-    field(DTYP, "stream")
-    field(OUT,  "@devPCU50_300.proto setD(*SRE) $(PORT) $(A)")
-}
+# record(longin, "$(P)$(R)GetESE")
+# {
+#     field(DESC, "SCPI enabled event status")
+#     field(DTYP, "stream")
+#     field(INP,  "@devPCU50_300.proto getD(*ESE) $(PORT) $(A)")
+# }
 
-record(longin, "$(P)$(R)GetSRE")
-{
-    field(DESC, "Enabled service requests")
-    field(DTYP, "stream")
-    field(INP,  "@devPCU50_300.proto getD(*SRE) $(PORT) $(A)")
-}
+# record(longout, "$(P)$(R)SetSRE")
+# {
+#     field(DESC, "SCPI enable service requests")
+#     field(DTYP, "stream")
+#     field(OUT,  "@devPCU50_300.proto setD(*SRE) $(PORT) $(A)")
+# }
 
-record(longin, "$(P)$(R)GetOPC")
-{
-    field(DESC, "Output completion status")
-    field(DTYP, "stream")
-    field(INP,  "@devPCU50_300.proto getD(*OPC) $(PORT) $(A)")
-}
+# record(longin, "$(P)$(R)GetSRE")
+# {
+#     field(DESC, "Enabled service requests")
+#     field(DTYP, "stream")
+#     field(INP,  "@devPCU50_300.proto getD(*SRE) $(PORT) $(A)")
+# }
+
+# record(longin, "$(P)$(R)GetOPC")
+# {
+#     field(DESC, "Output completion status")
+#     field(DTYP, "stream")
+#     field(INP,  "@devPCU50_300.proto getD(*OPC) $(PORT) $(A)")
+# }
 
 
 # Interface commands for Heinzinger PCU50_300 (should work with others as well)
 
-record(ai, "$(P)$(R)GetCurrent") {
-    field(DESC, "Read output current")
-    field(DTYP, "stream")
-    field(INP, "@devPCU50_300.proto getCurrent $(PORT) $(A)")
-    # field(SCAN, "1 second")
-    field(SCAN, "Passive")
-    # field(PINI, "YES")
-    field(EGU, "Amps")
-    field(ESLO, "0.001")
-    field(LINR, "SLOPE")
-}
+# Setting commands
 
 record(ao, "$(P)$(R)SetCurrent") {
     field(DESC, "Write output current")
@@ -107,12 +103,82 @@ record(ao, "$(P)$(R)SetCurrent") {
     # field(SCAN, "1 second")
     field(SCAN, "Passive")
     field(OUT, "@devPCU50_300.proto setCurrent(%d) $(PORT) $(A)")
-    field(PINI, "YES")
     field(VAL, "0")
-    # field(FLNK, "$(P)$(R)GetCurrent")
+    field(FLNK, "$(P)$(R)GetCurrent")
     field(EGU, "Amps")
     field(ESLO, "0.001")
     field(LINR, "SLOPE")
+    # field(PINI, "YES")
+    field(DRVL, "0")
+    field(DRVH, "300")
+}
+
+# Read Commands
+
+record(ai, "$(P)$(R)GetCurrent") {
+    field(DESC, "Read output current")
+    field(DTYP, "stream")
+    field(INP, "@devPCU50_300.proto getCurrent $(PORT) $(A)")
+    field(SCAN, "1 second")
+    # field(SCAN, "Passive")
+    field(EGU, "Amps")
+    field(ESLO, "0.001")
+    field(LINR, "SLOPE")
+    # field(PINI, "YES")
+}
+
+record(ai, "$(P)$(R)GetVoltage") {
+    field(DESC, "Read output voltage")
+    field(DTYP, "stream")
+    field(INP, "@devPCU50_300.proto getVoltage $(PORT) $(A)")
+    field(SCAN, "1 second")
+    # field(SCAN, "Passive")
+    field(EGU, "Volts")
+    field(ESLO, "0.001")
+    field(LINR, "SLOPE")
+    # field(PINI, "YES")
+}
+
+# Control Commands
+
+record(ao, "$(P)$(R)SetOutputOFF") {
+    field(DESC, "Set output to OFF")
+    field(DTYP, "stream")
+    # field(SCAN, "1 second")
+    field(SCAN, "Passive")
+    field(OUT, "@devPCU50_300.proto setOFF $(PORT) $(A)")
+    field(FLNK, "$(P)$(R)StatusRegister")
+    # field(PINI, "YES")
+}
+
+record(ao, "$(P)$(R)SetOutputON") {
+    field(DESC, "Set output to ON")
+    field(DTYP, "stream")
+    # field(SCAN, "1 second")
+    field(SCAN, "Passive")
+    field(OUT, "@devPCU50_300.proto setON $(PORT) $(A)")
+    field(FLNK, "$(P)$(R)StatusRegister")
+    # field(PINI, "YES")
+}
+
+record(ao, "$(P)$(R)SetOutputStandby") {
+    field(DESC, "Set output to Standby")
+    field(DTYP, "stream")
+    # field(SCAN, "1 second")
+    field(SCAN, "Passive")
+    field(OUT, "@devPCU50_300.proto setStandby $(PORT) $(A)")
+    field(FLNK, "$(P)$(R)StatusRegister")
+    # field(PINI, "YES")
+}
+
+# Status Information
+
+record(stringin, "$(P)$(R)GetPolarity") {
+    field(DESC, "Read output Polarity")
+    field(DTYP, "stream")
+    field(INP, "@devPCU50_300.proto getPolarity $(PORT) $(A)")
+    field(SCAN, "10 second")
+    # field(PINI, "YES")
 }
 
 record(mbbiDirect, "$(P)$(R)StatusRegister") {
@@ -120,6 +186,118 @@ record(mbbiDirect, "$(P)$(R)StatusRegister") {
     field(NOBT, "24")
     field(DTYP, "stream")
     field(INP,  "@devPCU50_300.proto getStatus $(PORT) $(A)")
+    field(SCAN, "1 second")
     field(PINI, "YES")
+    field(FLNK, "$(P)$(R)StatusFanout")
+}
+
+record(fanout, "$(P)$(R)StatusFanout") {
+    field(LNK1, "$(P)$(R)PCU_OutputOff")
+    field(LNK2, "$(P)$(R)PCU_Control")
+    field(LNK3, "$(P)$(R)PCU_InternalFault")
+    field(LNK4, "$(P)$(R)PCU_PRSFault")
+    field(LNK5, "$(P)$(R)PCU_PTFault")
+    field(LNK6, "$(P)$(R)PCU_ExternalInterlock1")
+    field(LNK7, "$(P)$(R)PCU_OutputStandby")
+    field(LNK8, "$(P)$(R)PCU_SumInterlock")
+    field(LNK9, "$(P)$(R)PCU_OutputOn")
+    field(LNKA, "$(P)$(R)PCU_ExternalInterlock2")
+    field(LNKB, "$(P)$(R)PCU_GNDFault")
+    field(LNKC, "$(P)$(R)PCU_TemperatureFault")
+}
+
+record(bi, "$(P)$(R)PCU_OutputOff") {
+    field(DESC, "Power Supply Output Off")
+    field(ZNAM, "Output not off")    
+    field(ONAM, "Output Off")     
+    field(INP,  "$(P)$(R)StatusRegister.B17")
+    field(SCAN, "Passive")
+}
+
+record(bi, "$(P)$(R)PCU_OutputStandby") {
+    field(DESC, "Power Supply Output Standby")
+    field(ZNAM, "Output not standby")    
+    field(ONAM, "Output Standby")     
+    field(INP,  "$(P)$(R)StatusRegister.BF")
+    field(SCAN, "Passive")
+}
+
+record(bi, "$(P)$(R)PCU_OutputOn") {
+    field(DESC, "Power Supply Output On")
+    field(ZNAM, "Output not On")    
+    field(ONAM, "Output On")     
+    field(INP,  "$(P)$(R)StatusRegister.BB")
+    field(SCAN, "Passive")
+}
+
+record(bi, "$(P)$(R)PCU_Control") {
+    field(DESC, "Power Supply Control Local/Remote")
+    field(ZNAM, "Remote Control")    
+    field(ONAM, "Local Control")     
+    field(INP,  "$(P)$(R)StatusRegister.B16")
+    field(SCAN, "Passive")
+}
+
+record(bi, "$(P)$(R)PCU_InternalFault") {
+    field(DESC, "Power Supply Internal Fault")
+    field(ZNAM, "No Fault")    
+    field(ONAM, "FAULT")     
+    field(INP,  "$(P)$(R)StatusRegister.B14")
+    field(SCAN, "Passive")
+}
+
+record(bi, "$(P)$(R)PCU_PRSFault") {
+    field(DESC, "Power Supply P.R.S. Fault")
+    field(ZNAM, "No Fault")    
+    field(ONAM, "FAULT")     
+    field(INP,  "$(P)$(R)StatusRegister.B13")
+    field(SCAN, "Passive")
+}
+
+record(bi, "$(P)$(R)PCU_PTFault") {
+    field(DESC, "Power Supply Power/transducer Fault")
+    field(ZNAM, "No Fault")    
+    field(ONAM, "FAULT")     
+    field(INP,  "$(P)$(R)StatusRegister.B12")
+    field(SCAN, "Passive")
+}
+
+record(bi, "$(P)$(R)PCU_GNDFault") {
+    field(DESC, "Power Supply Ground Fault")
+    field(ZNAM, "No Fault")    
+    field(ONAM, "FAULT")     
+    field(INP,  "$(P)$(R)StatusRegister.B7")
+    field(SCAN, "Passive")
+}
+
+record(bi, "$(P)$(R)PCU_TemperatureFault") {
+    field(DESC, "Power Supply Over temperature Fault")
+    field(ZNAM, "No Fault")    
+    field(ONAM, "FAULT")     
+    field(INP,  "$(P)$(R)StatusRegister.B5")
+    field(SCAN, "Passive")
+}
+
+record(bi, "$(P)$(R)PCU_ExternalInterlock1") {
+    field(DESC, "Power Supply External Interlock 1")
+    field(ZNAM, "Interlock OK")    
+    field(ONAM, "Interlock 1 FAULT")     
+    field(INP,  "$(P)$(R)StatusRegister.B10")
+    field(SCAN, "Passive")
+}
+
+record(bi, "$(P)$(R)PCU_ExternalInterlock2") {
+    field(DESC, "Power Supply External Interlock 2")
+    field(ZNAM, "Interlock OK")    
+    field(ONAM, "Interlock 2 FAULT")     
+    field(INP,  "$(P)$(R)StatusRegister.BA")
+    field(SCAN, "Passive")
+}
+
+record(bi, "$(P)$(R)PCU_SumInterlock") {
+    field(DESC, "Power Supply Sum Interlock")
+    field(ZNAM, "All Interlocks OK")    
+    field(ONAM, "Interlock FAULT")     
+    field(INP,  "$(P)$(R)StatusRegister.BE")
     field(SCAN, "Passive")
 }
