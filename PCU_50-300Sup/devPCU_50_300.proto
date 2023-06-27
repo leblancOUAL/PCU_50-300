@@ -45,5 +45,10 @@ setOFF {
 
 getStatus {
     out "S1H";
-    in "%d";
+    in "%x";
+}
+
+getPolarity {
+    out "PO";
+    in "%s"
 }
