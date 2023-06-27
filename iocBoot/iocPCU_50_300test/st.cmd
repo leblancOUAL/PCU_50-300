@@ -34,12 +34,12 @@ asynSetOption("USB0",-1,"parity","none")
 asynSetOption("USB0",-1,"stop","2")
 
 # Set output and input end of command terminators to be newlines.
-asynOctetSetOutputEos("USB0", 0, "\n")
-asynOctetSetInputEos("USB0", 0, "\n")
+asynOctetSetOutputEos("USB0", 0, "\r")
+asynOctetSetInputEos("USB0", 0, "\n\r")
 ############################################################################### 
 
-asynSetTraceIOMask("USB0", 0, "ESCAPE")
-asynSetTraceMask("USB0", 0, "ERROR|DRIVER")
+# asynSetTraceIOMask("USB0", 0, "ESCAPE")
+# asynSetTraceMask("USB0", 0, "ERROR|DRIVER")
 
 var streamError 1
 var streamDebug 1
